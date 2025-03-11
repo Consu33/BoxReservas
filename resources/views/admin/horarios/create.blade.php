@@ -23,14 +23,32 @@
                         <select name="box_id" id="box_select" class="form-control">
                             <option value="">Seleccionar un Box...</option>
                             @foreach($boxes as $box)
-                            <option value="{{$box->id}}">{{$box->numero}}</option>
+                                <option value="{{$box->id}}">{{$box->numero." - ".$box->recinto}}</option>
                             @endforeach
                         </select>
+                        <script>
+                            $('#box_select').on('change', function () {
+                                var box_id = $('#box_select').val();
+                                //alert(box_id);
+
+                                if(box_id){
+                                    $.ajax({
+                                        url: "{{url('/boxes/')}}" + '/' + box_id,
+                                        type: 'GET',
+                                        success: function (data) {
+                                            $('#box_info').html(data);
+                                        },
+                                        error: function () {
+                                            alert('Error al obtener los datos');
+                                        }
+                                    });
+                                }else{
+                                    $('#box_info').html('');
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
-                <tbody>
-
-                </tbody>
             </div>
 
             <div class="card-body">
@@ -176,8 +194,8 @@
                                 @foreach($horarios as $horario)
                                 {
                                     title: '{{ $horario->title }}',
-                                    start: '{{ $horario->start }}',
-                                    end: '{{ $horario->end }}',
+                                    start: '{{\Carbon\Carbon::parse($horario->start)->format('Y-m-d')}}',
+                                    end: '{{\Carbon\Carbon::parse($horario->end)->format('Y-m-d')}}',
                                     color: '{{ trim($horario->color) }}',
                                     textColor: '#fcfcfc '
                                 }, 

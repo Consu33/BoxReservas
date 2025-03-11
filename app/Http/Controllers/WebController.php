@@ -16,9 +16,10 @@ class WebController extends Controller
         return view('index', compact('boxes'));
     }
 
-    public function cargar_datos_boxes(Request $request)
+    public function cargar_fullCalendar($id)
     {
-        $boxId = $request->input('id'); // Usamos el parámetro 'id' desde la solicitud POST
+        echo $id;
+        /*$boxId = $request->input('id'); // Usamos el parámetro 'id' desde la solicitud POST
         $box = Box::find($boxId);
 
         if ($box) {
@@ -33,7 +34,7 @@ class WebController extends Controller
             }
         }
 
-        return response()->json(['mensaje' => 'Box no encontrado']);
+        return response()->json(['mensaje' => 'Box no encontrado']);*/
     }
 
     public function cargar_reserva_doctores($id)

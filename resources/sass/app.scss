@@ -1,0 +1,10 @@
+// Importar variables
+@use '_variables' as *;
+
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Otros estilos
+.example {
+    color: $primary-color;
+}

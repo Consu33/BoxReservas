@@ -172,25 +172,17 @@
                                 center: 'title',
                                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
                             },
-                            events: [{
-                                title: '08:00 - 09:00 Odontologico',
-                                start: '2025-03-07',
-                                end: '2025-03-07',
-                                color: '',
-                                textColor: '#fcfcfc '
-                            }, {
-                                title: '08:00 - 09:00 Odontologico',
-                                start: '2025-03-10',
-                                end: '2025-03-10',
-                                color: '',
-                                textColor: '#fcfcfc '
-                            }, {
-                                title: '10:00 -11:00 Odontologico',
-                                start: '2025-03-10',
-                                end: '2025-03-10',
-                                color: '',
-                                textColor: '#fcfcfc '
-                            }],
+                            events: [
+                                @foreach($horarios as $horario)
+                                {
+                                    title: '{{ $horario->title }}',
+                                    start: '{{ $horario->start }}',
+                                    end: '{{ $horario->end }}',
+                                    color: '{{ trim($horario->color) }}',
+                                    textColor: '#fcfcfc '
+                                }, 
+                                @endforeach
+                            ],
                         });
                         calendar.render();
                         // Actualizar el valor del campo oculto box_id_hidden al cambiar el Box

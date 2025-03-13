@@ -11,6 +11,10 @@ class Horario extends Model
 
     protected $fillable = ['fecha_inicio', 'hora_inicio', 'hora_fin', 'doctor_id', 'box_id', 'title', 'start', 'end', 'color', 'user_id'];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     public function doctor(){
         return $this->belongsTo(Doctor::class);
     }

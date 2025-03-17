@@ -23,31 +23,6 @@
                         <select name="box_id" id="box_select" class="form-control">
                             <option value="">Seleccionar un Box...</option>
                             @foreach($boxes as $box)
-<<<<<<< HEAD
-                                <option value="{{$box->id}}">{{$box->numero." - ".$box->recinto}}</option>
-                            @endforeach
-                        </select>
-                        <script>
-                            $('#box_select').on('change', function () {
-                                var box_id = $('#box_select').val();
-                                //alert(box_id);
-
-                                if(box_id){
-                                    $.ajax({
-                                        url: "{{url('/boxes/')}}" + '/' + box_id,
-                                        type: 'GET',
-                                        success: function (data) {
-                                            $('#box_info').html(data);
-                                        },
-                                        error: function () {
-                                            alert('Error al obtener los datos');
-                                        }
-                                    });
-                                }else{
-                                    $('#box_info').html('');
-                                }
-                            });
-=======
                                 <option value="{{$box->id}}" {{ old('box_id') == $box->id ? 'selected' : '' }}>
                                     {{ $box->numero . " - " . $box->recinto }}
                                 </option>
@@ -129,7 +104,6 @@
                                     }
                                 });
                              
->>>>>>> ramaHija
                         </script>
                     </div>
                 </div>

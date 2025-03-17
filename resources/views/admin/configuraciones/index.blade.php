@@ -45,9 +45,9 @@
                             
                             <td style="text-align: center;">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{url('admin/configuraciones/'.$configuracione->id)}}" button type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                                    <a href="{{url('admin/configuraciones/'.$configuracione->id.'/edit')}}" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
-                                    <a href="{{url('admin/configuraciones/'.$configuracione->id.'/confirm-delete')}}" type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                    <a href="{{url('admin/configuraciones/'.$configuracione->id)}}" button type="button" class="btn btn-info btn-sm"><i class="bi bi-eye" data-toggle="tooltip" data-placement="bottom" title="Ver"></i></a>
+                                    <a href="{{url('admin/configuraciones/'.$configuracione->id.'/edit')}}" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil" data-toggle="tooltip" data-placement="bottom" title="Editar"></i></a>
+                                    <a href="{{url('admin/configuraciones/'.$configuracione->id.'/confirm-delete')}}" type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash" data-toggle="tooltip" data-placement="bottom" title="Borrar"></i></a>
                                 </div>
                             </td>
                         </tr>

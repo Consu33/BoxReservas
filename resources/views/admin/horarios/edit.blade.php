@@ -5,7 +5,6 @@
 </div>
 
 <hr>
-{{ dd($boxes) }}
 
 <div class="row">
     <div class="col-md-12">
@@ -30,7 +29,7 @@
                         <div class="col-md-4">
                             <div class="form group">
                                 <label for="">Hora Ingreso</label> <b>*</b>
-                                <input type="text" value="{{$horario->hora_inicio}}" name="hora_inicio" class="form-control" required>
+                                <input type="time" value="{{$horario->hora_inicio}}" name="hora_inicio" class="form-control" required>
                                 @error('hora_inicio')
                                 <small style="color:red">{{$message}}</small>
                                 @enderror
@@ -39,7 +38,7 @@
                         <div class="col-md-4">
                             <div class="form group">
                                 <label for="">Hora Término</label> <b>*</b>
-                                <input type="text" value="{{$horario->hora_fin}}" name="hora_fin" class="form-control" required>
+                                <input type="time" value="{{$horario->hora_fin}}" name="hora_fin" class="form-control" required>
                                 @error('hora_fin')
                                 <small style="color:red">{{$message}}</small>
                                 @enderror
@@ -49,22 +48,37 @@
                     <br>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form group">
-                                <label for="">Box</label> <b>*</b>
-                                <select name="box_id" class="form-control" required>
+                            <div class="form-group">
+                                <label for="">Seleccionar Box</label>
+                                <select name="box_id" class="form-control">
                                     @foreach($boxes as $box)
-                                    <option value="{{ $box->id }}"
-                                        {{ $horario->box_id == $box->id ? 'selected' : '' }}>
-                                        {{ $box->numero . ' - ' . $box->recinto }}
-                                    </option>
+                                        <option value="{{ $box->id }}" {{ $horario->box_id == $box->id ? 'selected' : '' }}>
+                                            {{ $box->numero . ' - ' . $box->recinto }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('box_id')
-                                <small style="color:red">{{$message}}</small>
+                                <small style="color:red">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Seleccionar Doctor</label>
+                                <select name="doctor_id" class="form-control">
+                                    @foreach($doctores as $doctor)
+                                        <option value="{{ $doctor->id }}" {{ $horario->doctor_id == $doctor->id ? 'selected' : '' }}>
+                                            {{ $doctor->nombre . ' ' . $doctor->apellido }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('doctor_id')
+                                <small style="color:red">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
                     </div>
+                    
                     <hr>
                     <div class="row">
                         <div class="col-md-12">

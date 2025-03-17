@@ -44,38 +44,42 @@ class HorarioController extends Controller
     {
         //$datos = request()->all();
         //return response()->json($datos);
-
         $request->validate([
-            'fecha_reserva' => 'required|date|date_format:Y-m-d',
-            'hora_inicio' => 'required|date_format:H:i',
+            'fecha_inicio' => 'required|date',
+            'hora_inicio' => 'required',
             'hora_termino' => 'required|date_format:H:i|after:hora_inicio',
             'doctor_id' => 'required|exists:doctors,id',
             'box_id' => 'required|exists:boxes,id',
         ]);
 
-
         //Verificar si el horario ya existe para ese dia y rango de horas
-        /*$horarioExistente = Horario::where('fecha_inicio', $request->fecha_reserva)
-            ->where('box_id', $request->box_id)
+        $horarioExistente = Horario::where('box_id', $request->box_id)
+            ->where('fecha_inicio', $request->fecha_inicio)
             ->where(function ($query) use ($request) {
-                $query->where('hora_inicio', '<', $request->hora_termino)
-                    ->where('hora_fin', '>', $request->hora_inicio);
+                $query->whereBetween('hora_inicio', [$request->hora_inicio, $request->hora_termino])
+                    ->orWhereBetween('hora_fin', [$request->hora_inicio, $request->hora_termino])
+                    ->orWhere(function ($subQuery) use ($request) {
+                        $subQuery->where('hora_inicio', '<=', $request->hora_inicio)
+                            ->where('hora_fin', '>=', $request->hora_termino);
+                    });
             })
             ->exists();
 
         if ($horarioExistente) {
-            return redirect()->back()->with('error', 'El horario ya está ocupado.');
-        }*/
-
+            return redirect()->back()
+                ->with('error', 'El horario ya está ocupado.')
+                ->withInput(); // Esto asegura que los valores anteriores, incluido el box_id, persistan
+        }
+        
         $doctor = Doctor::find($request->doctor_id);
-       
+
         $horario = new Horario();
-        $horario->fecha_inicio = $request->fecha_reserva; 
-        $horario->hora_inicio = $request->hora_inicio;   
-        $horario->hora_fin = $request->hora_termino;
+        $horario->fecha_inicio = $request->fecha_inicio;
+        $horario->hora_inicio = $request->hora_inicio . ':00';
+        $horario->hora_fin = $request->hora_termino . ':00';
         $horario->title = $request->hora_inicio . " " . $doctor->nombre . " " . $doctor->apellido . " - " . $doctor->profesion;
-        $horario->start = $request->fecha_reserva . ' ' . $request->hora_inicio;
-        $horario->end = $request->fecha_reserva . ' ' . $request->hora_termino;
+        $horario->start = $request->fecha_inicio . ' ' . $request->hora_inicio . ':00';
+        $horario->end = $request->fecha_inicio . ' ' . $request->hora_termino . ':00';
         $horario->color = '#4e87de ';
         $horario->user_id = Auth::user()->id;
         $horario->doctor_id = $request->doctor_id;
@@ -145,8 +149,8 @@ class HorarioController extends Controller
         $horario->doctor_id = $request->doctor_id;
         $horario->box_id = $request->box_id;
         $horario->fecha_inicio = $request->fecha_inicio;
-        $horario->hora_inicio = $request->hora_inicio;
-        $horario->hora_fin = $request->hora_fin;
+        $horario->hora_inicio = $request->hora_inicio . ':00';
+        $horario->hora_fin = $request->hora_fin . ':00';
         $horario->save();
 
         return redirect()->route('admin.horarios.index')->with('success', 'Horario actualizado correctamente');

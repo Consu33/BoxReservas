@@ -37,19 +37,19 @@ class WebController extends Controller
         return response()->json(['mensaje' => 'Box no encontrado']);*/
     }
 
-    public function cargar_reserva_doctores($id)
+    public function cargar_fullCalendar($id)
     {
         try {
-            $eventos = Event::where('doctor_id', $id)
-                ->select(
+            $horarios = Horario::where('box_id', $id)->get();
+                /*->select(
                     'id',
                     'title',
                     DB::raw('DATE_FORMAT(start, "%Y-%m-%d") as start'),  
                     DB::raw('DATE_FORMAT(end, "%Y-%m-%d") as end'),      
                     'color'
                 )
-                ->get();
-            return response()->json($eventos);
+                ->get();*/
+            return response()->json($horarios);
         } catch (\Exception $exception) {
             return response()->json(['mensaje' => 'Error']);
         }

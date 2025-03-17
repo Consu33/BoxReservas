@@ -77,8 +77,16 @@
                                             success: function (data) {
                                                 calendar.addEventSource(data); // Añadir eventos al calendario
                                             },
-                                            error: function () {
-                                                alert('Error al obtener los datos.');
+                                            error: function(xhr) {
+                                                console.log('Error recibido:', xhr); // Depuración
+                                                if (xhr.status === 409) {
+                                                    alert(xhr.responseJSON.error); // Mostrar mensaje de duplicidad
+                                                } else {
+                                                    alert('Ocurrió un error inesperado.');
+                                                }
+
+                                                // Limpia solo la selección actual sin afectar el calendario ni sus eventos
+                                                calendar.unselect(); // Permite nuevas selecciones tras un error
                                             }
                                         });
                                     }

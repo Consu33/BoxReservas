@@ -65,11 +65,6 @@ class HorarioController extends Controller
             })
             ->exists();
 
-        /*if ($horarioExistente) {           
-            session()->flash('error', 'El horario ya está ocupado.');
-            return redirect()->back();
-        }*/
-
         if ($horarioExistente) {
             return redirect()->back()
                 ->with('error', 'El horario ya está ocupado.')

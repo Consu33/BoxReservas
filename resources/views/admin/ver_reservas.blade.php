@@ -26,18 +26,18 @@
                     </thead>
                     <tbody>
                         <?php $contador = 1; ?>
-                        @foreach($eventos as $evento)
+                        @foreach($horarios as $horario)
                         <tr>
                             <td style="text-align: center;">{{$contador++}}</td>
-                            <td style="text-align: center;">{{$evento->doctor->nombre." ".$evento->doctor->apellido}}</td>
-                            <td style="text-align: center;">{{$evento->doctor->especialidad}}</td>
-                            <td style="text-align: center;">{{\Carbon\Carbon::parse($evento->start)->format('d-m-Y')}}</td>
-                            <td style="text-align: center;">{{\Carbon\Carbon::parse($evento->end)->format('H:i')}}</td>
-                            <td style="text-align: center;">{{\Carbon\Carbon::parse($evento->created_at)->format('d-m-Y H:i')}}</td>
+                            <td style="text-align: center;">{{$horario->doctor->nombre." ".$horario->doctor->apellido}}</td>
+                            <td style="text-align: center;">{{$horario->doctor->especialidad}}</td>
+                            <td style="text-align: center;">{{\Carbon\Carbon::parse($horario->start)->format('d-m-Y')}}</td>
+                            <td style="text-align: center;">{{\Carbon\Carbon::parse($horario->end)->format('H:i')}}</td>
+                            <td style="text-align: center;">{{\Carbon\Carbon::parse($horario->created_at)->format('d-m-Y H:i')}}</td>
                             <td style="text-align: center;">                                
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <form action="{{url('/admin/eventos/destroy',$evento->id)}}"
-                                        id="formulario{{$evento->id}}" onclick="preguntar{{$evento->id}}(event)" method="POST">
+                                    <form action="{{url('/admin/horarios/destroy',$horario->id)}}"
+                                        id="formulario{{$horario->id}}" onclick="preguntar{{$horario->id}}(event)" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm ">
@@ -45,7 +45,7 @@
                                         </button>
                                     </form>
                                     <script>
-                                        function preguntar{{$evento->id}}(event) {
+                                        function preguntar{{$horario->id}}(event) {
                                             event.preventDefault();
                                             Swal.fire({
                                                 title: "¿Está seguro de eliminar la reserva?",
@@ -57,7 +57,7 @@
                                                 cancelButtonText: 'Cancelar'
                                             }).then((result) => {
                                                 if (result.isConfirmed) {
-                                                    var form = $('#formulario{{$evento->id}}');
+                                                    var form = $('#formulario{{$horario->id}}');
                                                     form.submit();
                                                 }
                                             });

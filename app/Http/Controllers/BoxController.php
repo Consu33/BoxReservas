@@ -29,10 +29,12 @@ class BoxController extends Controller
         //return response()->json($datos);
         $request->validate([
             'numero' => 'required',
-            'recinto' => 'required',
+            'recinto' => 'required|unique:boxes',
             'especialidades' => 'nullable',
             'piso' => 'required',
             'torre'=>'required'
+        ],[
+            'recinto.unique' => 'El recinto ya está registrado.',
         ]);
 
         Box::create($request->all());

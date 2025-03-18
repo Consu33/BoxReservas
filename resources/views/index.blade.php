@@ -55,7 +55,7 @@
     <div class="branding d-flex align-items-center">
 
       <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="{{url('/')}}" class="logo d-flex align-items-center me-auto">
+        <a href="{{url('/')}}" class="logo d-flex align-items-center me-auto text-decoration-none">
           <h1 class="sitename">Box Reservas Medicas</h1>
         </a>
 
@@ -71,7 +71,7 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="cta-btn d-none d-sm-block" href="{{url('login')}}">Ingresar</a>
+        <a class="cta-btn d-none d-sm-block text-decoration-none" href="{{url('login')}}">Ingresar</a>
 
       </div>
     </div>
@@ -115,9 +115,7 @@
               <div class="col-md-4">
                 <select name="box_id" id="box_select" class="form-control">
                   <option value="">Seleccionar un Box...</option>
-                  @foreach($boxes as $box)
-                  <option value="{{$box->id}}">{{$box->numero}}</option>
-                  @endforeach
+                 
                 </select>
               </div>
             </div>

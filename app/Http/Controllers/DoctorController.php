@@ -13,7 +13,7 @@ class DoctorController extends Controller
     
     public function index()
     {
-        $doctores = Doctor::with('user')->get();
+        $doctores = Doctor::with('user')->orderBy('nombre', 'asc')->get();
         return view ('admin.doctores.index', compact('doctores'));
     }
 
@@ -29,14 +29,18 @@ class DoctorController extends Controller
         $request->validate([
             'nombre' => 'required',
             'apellido' => 'required',
-            'rut' => 'required',
+            'rut' => 'required|unique:users',
             'profesion' => 'required',
-            'email' => 'required|max:250|unique:users',
-            'password' => 'required|max:250|confirmed',
+            'email' => 'required|max:200|unique:users',
+            'password' => 'required|max:200|confirmed',
+        ],[
+            'rut.unique' => 'El RUT ingresado ya está registrado.',
+            'email.unique' => 'El correo ingresado ya está registrado.',
         ]);
 
         $usuario = new User();
         $usuario->name = $request->nombre;
+        $usuario->apellido = $request->apellido;
         $usuario->rut = $request->rut;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request['password']);

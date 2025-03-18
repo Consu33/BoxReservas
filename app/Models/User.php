@@ -67,8 +67,8 @@ class User extends Authenticatable
         return $this->hasMany(Event::class);
     }
 
-    public function horario(){
-        return $this->hasMany(Event::class);
+    public function horarios(){
+        return $this->hasMany(Horario::class);
     }
    
 }

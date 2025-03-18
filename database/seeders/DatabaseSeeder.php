@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Administrador',
+            'apellido' => 'Consuelo',
             'rut' => '12345678-9',
             'email' => 'admin@admin.com',
             'password' => Hash::make('123456789')
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Camila',
+            'apellido' => 'Lopez',
             'rut' => '22222222-2',
             'email' => 'enfermera@admin.cl',
             'password' => Hash::make('123456789')
@@ -36,6 +38,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Luis',
+            'apellido' => 'Rojas',
             'rut' => '44444444-4',
             'email' => 'doctor@admin.cl',
             'password' => Hash::make('123456789')
@@ -44,6 +47,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Nicole',
+            'apellido' => 'Bezares',
             'rut' => '88888888-8',
             'email' => 'nicoleBezares@admin.cl',
             'password' => Hash::make('123456789')

@@ -39,6 +39,7 @@ class RolDobleController extends Controller
 
         $usuario = new User();
         $usuario->name = $request->nombre;
+        $usuario->apellido = $request->apellido;
         $usuario->rut = $request->rut;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request['password']);

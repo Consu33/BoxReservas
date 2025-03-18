@@ -113,8 +113,8 @@ class RoleSeeder extends Seeder
         //ajax
 
         Permission::create(['name' => 'cargar_datos_boxes'])->syncRoles([$administrador, $rolDoble]);
-        Permission::create(['name' => 'cargar_fullCalendar'])->syncRoles([$administrador, $enfermera]);
-        Permission::create(['name' => 'ver_reservas'])->syncRoles([$administrador, $usuario]);
+        Permission::create(['name' => 'cargar_fullCalendar'])->syncRoles([$administrador, $enfermera, $doctor]);
+        Permission::create(['name' => 'ver_reservas'])->syncRoles([$administrador, $doctor]);
         Permission::create(['name' => 'admin.eventos.create'])->syncRoles([$administrador, $usuario]);
         Permission::create(['name' => 'admin.eventos.destroy'])->syncRoles([$administrador, $usuario]); 
     }

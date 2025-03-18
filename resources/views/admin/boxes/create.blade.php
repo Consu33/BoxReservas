@@ -40,6 +40,9 @@
                                             <option value="odontologia">Odontología</option>
                                             <option value="psiquiatria">Psiquiatría</option>
                                         </select>
+                                        @error('recinto')
+                                        <small style="color:red">{{ $message }}</small>
+                                        @enderror
                                     </div>    
                                 </div>
                                 <div class="col-md-4">

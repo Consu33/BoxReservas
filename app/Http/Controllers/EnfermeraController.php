@@ -12,7 +12,7 @@ class EnfermeraController extends Controller
     
     public function index()
     {
-        $enfermeras = Enfermera::with('user')->get();
+        $enfermeras = Enfermera::with('user')->orderBy('nombre', 'asc')->get();
         return view('admin.enfermeras.index', compact('enfermeras'));
     }
 
@@ -28,17 +28,20 @@ class EnfermeraController extends Controller
         //$datos = request()->all();
         //return response()->json($datos);
         $request->validate([
-            'rut' => 'required|unique:enfermeras',
+            'rut' => 'required|unique:users',
             'nombre' => 'required',
             'apellido' => 'required',
             'profesion' => 'required',
             'email'=>'required|max:250|unique:users',
             'password'=>'required|max:250|confirmed',
-
+        ],[
+            'rut.unique' => 'El RUT ingresado ya está registrado.',
+            'email.unique' => 'El correo ingresado ya está registrado.',
         ]);
 
         $usuario = new User();
         $usuario->name = $request->nombre;
+        $usuario->apellido = $request->apellido;
         $usuario->rut = $request->rut;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request['password']);

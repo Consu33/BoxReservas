@@ -52,6 +52,11 @@ class HorarioController extends Controller
             'box_id' => 'required|exists:boxes,id',
         ]);
 
+        $doctor = Doctor::find($request->doctor_id);
+        $box = Box::find($request->boxes_id);
+        $fecha_inicio = $request->fecha_inicio;
+        $hora_inicio = $request->hora_inicio;
+
         //Verificar si el horario ya existe para ese dia y rango de horas
         $horarioExistente = Horario::where('box_id', $request->box_id)
             ->where('fecha_inicio', $request->fecha_inicio)
@@ -67,11 +72,10 @@ class HorarioController extends Controller
 
         if ($horarioExistente) {
             return redirect()->back()
-                ->with('error', 'El horario ya está ocupado.')
-                ->withInput(); // Esto asegura que los valores anteriores, incluido el box_id, persistan
+                ->with('error', 'El horario ya está ocupado.'
+            );
         }
-        
-        $doctor = Doctor::find($request->doctor_id);
+
 
         $horario = new Horario();
         $horario->fecha_inicio = $request->fecha_inicio;

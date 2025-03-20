@@ -50,7 +50,7 @@
                                     headerToolbar: {
                                         left: 'prev,next today',
                                         center: 'title',
-                                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                                        right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
                                     },
                                     events: [] // Se cargarán eventos más adelante
                                 });

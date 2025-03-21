@@ -16,10 +16,10 @@ class WebController extends Controller
         return view('index', compact('boxes'));
     }
 
-    public function cargar_fullCalendar($id)
+    public function cargar_fullCalendar($id, Request $request)
     {
-        echo $id;
-        /*$boxId = $request->input('id'); // Usamos el parámetro 'id' desde la solicitud POST
+        
+        $boxId = $request->input('id'); // Usamos el parámetro 'id' desde la solicitud POST
         $box = Box::find($boxId);
 
         if ($box) {
@@ -34,24 +34,7 @@ class WebController extends Controller
             }
         }
 
-        return response()->json(['mensaje' => 'Box no encontrado']);*/
+        return response()->json(['mensaje' => 'Box no encontrado']);
     }
 
-    public function cargar_fullCalendar($id)
-    {
-        try {
-            $horarios = Horario::where('box_id', $id)->get();
-                /*->select(
-                    'id',
-                    'title',
-                    DB::raw('DATE_FORMAT(start, "%Y-%m-%d") as start'),  
-                    DB::raw('DATE_FORMAT(end, "%Y-%m-%d") as end'),      
-                    'color'
-                )
-                ->get();*/
-            return response()->json($horarios);
-        } catch (\Exception $exception) {
-            return response()->json(['mensaje' => 'Error']);
-        }
-    }
 }

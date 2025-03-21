@@ -19,7 +19,7 @@ return new class extends Migration
             $table->datetime('end')->nullable();
             $table->string('color', 7)->nullable();
 
-            $table->foreignId('user_id')->constrained('usuarios')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade');
             $table->foreignId('box_id')->constrained('boxes')->onDelete('cascade');
 

@@ -69,6 +69,7 @@ class HorarioController extends Controller
                     });
             })
             ->exists();
+            
 
         if ($horarioExistente) {
             return redirect()->back()

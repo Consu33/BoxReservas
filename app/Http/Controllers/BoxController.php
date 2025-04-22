@@ -29,7 +29,7 @@ class BoxController extends Controller
         //return response()->json($datos);
         $request->validate([
             'numero' => 'required',
-            'recinto' => 'required|unique:boxes',
+            'recinto' => 'required',
             'especialidades' => 'nullable',
             'piso' => 'required',
             'torre'=>'required'

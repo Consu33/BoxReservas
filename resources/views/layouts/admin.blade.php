@@ -65,6 +65,10 @@
     </nav>
     <!-- /.navbar -->
 
+    <div id="pageSpinner" class="text-center" style="display: none;">
+      <div class="spinner-border text-warning" role="status"></div>
+      <p>Cargando, por favor espera...</p>
+    </div>
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
@@ -83,6 +87,10 @@
         </div>
 
         <!-- Sidebar Menu -->
+        <div id="pageSpinner" class="text-center" style="display: none;">
+          <div class="spinner-border text-warning" role="status"></div>
+          <p>Cargando, por favor espera...</p>
+        </div>
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
@@ -300,6 +308,36 @@
       });
     </script>
     @endif
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#pageSpinner").hide(); // Ocultar el spinner al iniciar la página
+
+            // Si el usuario regresa con "atrás", oculta el spinner
+            window.addEventListener("pageshow", function (event) {
+                if (event.persisted) { 
+                    $("#pageSpinner").hide();
+                }
+            });
+
+            $(".nav-sidebar a.nav-link[href*='/admin'], .nav-treeview a.nav-link[href*='/admin'], a[href*='/admin/horarios/create'], a[href*='/admin/boxes/create'] , a[href*='/admin/horarios/informacion']").click(function (event) {
+                event.preventDefault(); // Evita navegación instantánea
+                $("#pageSpinner").show(); // Muestra el spinner
+
+                let targetUrl = $(this).attr("href"); // Obtiene la URL
+                window.location.href = targetUrl; // Redirige
+            });
+
+            // Asegurar que el botón "Registrar" en el modal envíe correctamente el formulario
+            $("button[type='submit']").click(function () {
+                $("#pageSpinner").show(); // Muestra el spinner solo cuando realmente se envía el formulario
+
+                let targetUrl = $(this).attr("href"); // Obtiene la URL
+                window.location.href = targetUrl; // Redirige
+            });
+        });
+    </script>
 
     <div class="content-wrapper">
       <br><br>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->datetime('start')->nullable();
             $table->datetime('end')->nullable();
-            $table->string('color', 7)->nullable();
+            $table->string('color')->nullable();
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade');

@@ -96,14 +96,15 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.doctores.pdf'])->syncRoles([$administrador]);
 
         //Rutas para el admin - horarios
-        Permission::create(['name' => 'admin.horarios.index'])->syncRoles([$administrador, $enfermera, $rolDoble]);
-        Permission::create(['name' => 'admin.horarios.create'])->syncRoles([$administrador, $enfermera, $rolDoble]);
-        Permission::create(['name' => 'admin.horarios.store'])->syncRoles([$administrador, $enfermera, $rolDoble]);
-        Permission::create(['name' => 'admin.horarios.show'])->syncRoles([$administrador, $enfermera, $rolDoble]);
-        Permission::create(['name' => 'admin.horarios.edit'])->syncRoles([$administrador, $enfermera, $rolDoble]);
-        Permission::create(['name' => 'admin.horarios.update'])->syncRoles([$administrador, $enfermera, $rolDoble]);
-        Permission::create(['name' => 'admin.horarios.confirmDelete'])->syncRoles([$administrador, $enfermera, $rolDoble]);
-        Permission::create(['name' => 'admin.horarios.destroy'])->syncRoles([$administrador, $enfermera, $rolDoble]);
+        Permission::create(['name' => 'admin.horarios.index'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.create'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.informacion'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.store'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.show'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.edit'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.update'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.confirmDelete'])->syncRoles([$administrador, $enfermera]);
+        Permission::create(['name' => 'admin.horarios.destroy'])->syncRoles([$administrador, $enfermera]);
 
         //ajax
         Permission::create(['name' => 'admin.horarios.cargar_datos_boxes'])->syncRoles([$administrador]);

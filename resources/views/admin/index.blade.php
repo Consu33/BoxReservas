@@ -6,21 +6,26 @@
 </div>
 
 <hr>
+<div id="pageSpinner" class="text-center" style="display: none;">
+    <div class="spinner-border text-warning" role="status"></div>
+    <p>Cargando, por favor espera...</p>
+</div>
+
 <div class="row">
 
     @can('admin.usuarios.index')
-    <div class="col-lg-3 col-6">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>{{$total_usuarios}}</h3>
-                <p>Usuarios</p>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{$total_usuarios}}</h3>
+                    <p>Usuarios</p>
+                </div>
+                <div class="icon">
+                    <i class="ion fas bi bi-file-person"></i>
+                </div>
+                <a href="{{url('admin/usuarios')}}" class="small-box-footer">Más Información<i class="fas bi bi-file-person"></i></a>
             </div>
-            <div class="icon">
-                <i class="ion fas bi bi-file-person"></i>
-            </div>
-            <a href="{{url('admin/usuarios')}}" class="small-box-footer">Más Información<i class="fas bi bi-file-person"></i></a>
         </div>
-    </div>
     @endcan
 
     @can('admin.enfermeras.index')
@@ -129,6 +134,32 @@
     </div>
     @endcan
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Oculta el spinner si el usuario vuelve atrás
+        $("#pageSpinner").hide();
+
+        //Detecta el usuario regresa con el boton "atras"
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted) {
+                $("#pageSpinner").hide(); //Oculta el spinner si la pagina fue restaurada desde el historial
+            }
+        });
+
+        // Mostrar spinner al hacer clic en un bloque
+        $(".small-box-footer").click(function (event) {
+            event.preventDefault(); // Evita navegación instantánea
+            $("#pageSpinner").show(); // Muestra el spinner
+
+            let targetUrl = $(this).attr("href"); // Obtiene la URL del bloque seleccionado
+
+            // Redirige sin tiempo fijo, dejando que la carga dependa de la velocidad real
+            window.location.href = targetUrl;
+        });
+    });
+</script>
 
 @if (Auth::check() && Auth::user()->doctor)
 <div class="row">

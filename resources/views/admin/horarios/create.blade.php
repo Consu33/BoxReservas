@@ -290,9 +290,39 @@
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
+                        var calendarEl = document.getElementById('calendar');
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            initialView: 'dayGridMonth',
+                            locale: 'es',
+                            headerToolbar: {
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                            },
+                            events: [
+                                @foreach($horarios as $horario)
+                                {
+                                    title: '{{ $horario->title }}',
+                                    start: '{{\Carbon\Carbon::parse($horario->start)->format('Y-m-d')}}',
+                                    end: '{{\Carbon\Carbon::parse($horario->end)->format('Y-m-d')}}',
+                                    color: '{{ trim($horario->color) }}',
+                                    textColor: '#fcfcfc '
+                                }, 
+                                @endforeach
+                            ],
+                        });
+                        calendar.render();
+                        // Actualizar el valor del campo oculto box_id_hidden al cambiar el Box
+                        document.getElementById('box_select').addEventListener('change', function() {
+                            var selectedBoxId = this.value; // Obtiene el ID del Box seleccionado
+                            document.getElementById('box_id_hidden').value = selectedBoxId; // Actualiza el campo oculto
+                        });
+=======
                         @if(session('error'))
                             $('#exampleModal').modal('show');
                         @endif
+>>>>>>> ramaHija
                     });
                 </script>                
 

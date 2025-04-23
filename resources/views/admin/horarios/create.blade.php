@@ -28,6 +28,45 @@
                                 </option>
                             @endforeach
                         </select>
+                        <!-- Loader oculto -->
+                        <div id="boxLoader" class="text-center" style="display: none; margin-top: 10px;">
+                            <div class="spinner-border text-warning" role="status"></div>
+                            <p>Cargando información...</p>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $("#box_select").change(function () {
+                                    let boxId = $(this).val(); // Obtener el ID seleccionado
+                        
+                                    if (boxId) {
+                                        $("#boxLoader").show(); // Mostrar el loader mientras carga
+                                        $("#boxInfo").html(""); // Vaciar contenido previo
+                                        
+                                        $.ajax({
+                                            url: `/admin/boxes/${boxId}`,
+                                            type: "GET",
+                                            success: function (data) {
+                                                console.log(data); // Verificar si el servidor devuelve datos
+                                                
+                                                if (data && Object.keys(data).length > 0) { 
+                                                    $("#boxLoader").hide(); // Ocultar loader SOLO si hay datos
+                                                } else {
+                                                    $("#boxLoader").hide(); // Ocultar loader si no hay datos
+                                                    $("#boxInfo").html("<p style='color:red;'>No hay información disponible.</p>");
+                                                }
+                                            },
+                                            error: function(xhr) {
+                                                $("#boxLoader").hide(); // Ocultar loader si hay error
+                                                $("#boxInfo").html("<p style='color:red;'>Error al cargar la información.</p>");
+                                                console.log('Error recibido:', xhr); // Depuración
+                                            }
+                                        });
+                                    } else {
+                                        $("#boxInfo").html(""); // Vaciar la info si no se selecciona un Box
+                                    }
+                                });
+                            });
+                        </script>
                         <script>
                             document.addEventListener("DOMContentLoaded", function () {
                                 const boxSelect = document.getElementById("box_select");
@@ -50,7 +89,7 @@
                                     headerToolbar: {
                                         left: 'prev,next today',
                                         center: 'title',
-                                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                                        right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
                                     },
                                     events: [] // Se cargarán eventos más adelante
                                 });
@@ -119,7 +158,7 @@
                 <!-- Modal -->
                 <form action="{{url('/admin/horarios/create')}}" method="post">
                     @csrf
-                    <input type="hidden" name="box_id" id="box_id_hidden"> <!-- Campo oculto para box_id -->
+                    <input type="hidden" name="box_id" id="box_id_hidden" value="{{ old('box_id') }}"> <!-- Campo oculto para box_id -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -140,9 +179,10 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="doctor_select">Doctor</label>
-                                                <select name="doctor_id" id="" class="form-control">
+                                                <select name="doctor_id" id="doctor_select" class="form-control">
+                                                    <option value="null" disabled selected>Seleccione Doctor</option>
                                                     @foreach($doctores as $doctor)
-                                                    <option value="{{$doctor->id}}">{{ $doctor->nombre." ".$doctor->apellido." - ".$doctor->profesion}}</option>
+                                                    <option value="{{$doctor->id}}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}  >{{ $doctor->nombre." ".$doctor->apellido." - ".$doctor->profesion}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -150,7 +190,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Fecha de Reserva</label>
-                                                <input type="date" id="fecha_inicio" value="{{ old('fecha_inicio') }}" name="fecha_inicio" class="form-control">
+                                                <input type="date" id="fecha_inicio" value="{{ old('fecha_inicio') }}" name="fecha_inicio" class="form-control" required>
                                                 <script>
                                                     document.addEventListener('DOMContentLoaded', function() {
                                                         const fechaReservaInput = document.getElementById('fecha_inicio');
@@ -176,7 +216,10 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Hora Inicio</label>
-                                                <input type="time" name="hora_inicio" id="hora_inicio" value="{{ old('hora_inicio') }}" class="form-control">
+                                                <input type="time" name="hora_inicio" id="hora_inicio" value="{{ old('hora_inicio') }}"  class="form-control" required>
+                                                @error('hora_inicio')
+                                                    <small style="">{{ $message }}</small>
+                                                @enderror
                                                 <script>
                                                     document.addEventListener('DOMContentLoaded', function() {
                                                         const horaInicioInput = document.getElementById('hora_inicio');
@@ -206,10 +249,10 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Hora Termino</label>
-                                                <input type="time" name="hora_termino" id="hora_termino" value="{{ old('hora_termino') }}" class="form-control">
+                                                <input type="time" name="hora_fin" id="hora_fin" value="{{ old('hora_fin') }}" class="form-control" required>
                                                 <script>
                                                     document.addEventListener('DOMContentLoaded', function() {
-                                                        const horaInicioInput = document.getElementById('hora_termino');
+                                                        const horaInicioInput = document.getElementById('hora_fin');
 
                                                         //Escuchar el evento de cambio en el campo de fecha reserva
                                                         horaInicioInput.addEventListener('change', function() {

@@ -15,6 +15,9 @@
                     <a href="{{url('admin/horarios/create')}}" class="btn btn-primary">
                         Reserva Nueva
                     </a>
+                    <a href="{{url('admin/horarios/informacion')}}" class="btn btn-success">
+                        Mostrar Horarios Diarios
+                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -38,9 +41,9 @@
                             <td style="text-align: center;">{{$contador++}}</td>
                             <td style="text-align: center;">{{$horario->doctor->nombre." ".$horario->doctor->apellido}}</td>
                             <td style="text-align: center;">{{$horario->doctor->profesion}}</td>
-                            <td style="text-align: center;">{{$horario->fecha_inicio}}</td>
-                            <td style="text-align: center;">{{$horario->hora_inicio}}</td>
-                            <td style="text-align: center;">{{$horario->hora_fin}}</td>
+                            <td style="text-align: center;">{{\Carbon\Carbon::parse($horario->start)->format('d-m-Y')}}</td>
+                            <td style="text-align: center;">{{\Carbon\Carbon::parse($horario->start)->format('H:i')}}</td>
+                            <td style="text-align: center;">{{\Carbon\Carbon::parse($horario->end)->format('H:i')}}</td>
                             <td style="text-align: center;">{{$horario->box->numero." ".$horario->box->recinto}}</td>
                             <td style="text-align: center;">
                                 <div class="btn-group" role="group" aria-label="Basic example">

@@ -41,12 +41,15 @@ class AdminController extends Controller
             'boxes', 
             'doctores',
             'eventos',
+            'horarios',
             'total_eventos'
         ));
     }
 
     public function ver_reservas($id){
-        $eventos = Event::where('user_id', $id)->get();
-        return view('admin.ver_reservas', compact('eventos'));
+        $horarios = Horario::where('user_id', $id)->get();
+        return view('admin.ver_reservas', compact('horarios'));
     }
+
+
 }

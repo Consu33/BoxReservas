@@ -27,6 +27,7 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  
   <!-- jQuery -->
   <script src="{{url('plugins/jquery/jquery.min.js')}}"></script>
 
@@ -55,7 +56,7 @@
     <div class="branding d-flex align-items-center">
 
       <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="{{url('/')}}" class="logo d-flex align-items-center me-auto">
+        <a href="{{url('/')}}" class="logo d-flex align-items-center me-auto text-decoration-none">
           <h1 class="sitename">Box Reservas Medicas</h1>
         </a>
 
@@ -71,7 +72,7 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="cta-btn d-none d-sm-block" href="{{url('login')}}">Ingresar</a>
+        <a class="cta-btn d-none d-sm-block text-decoration-none" href="{{url('login')}}">Ingresar</a>
 
       </div>
     </div>
@@ -82,7 +83,7 @@
 
     <section id="hero" class="hero section light-background">
 
-      <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
+      <img src="assets/img/fondo_pantalla.jpg" alt="" data-aos="fade-in">
 
       <div class="container position-relative">
 
@@ -96,65 +97,6 @@
     </section>
 
   </main>
-
-<!--   <br><br>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card card-info">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-md-4">
-                <h3 class="card-title">Calendario de Atención de Box, consulta la información que necesitas...</h3>
-              </div>
-              <div class="col-md-4">
-                <div style="float: center">
-                  <label for=""></label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <select name="box_id" id="box_select" class="form-control">
-                  <option value="">Seleccionar un Box...</option>
-                  @foreach($boxes as $box)
-                  <option value="{{$box->id}}">{{$box->numero}}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <script>
-              $('#box_select').on('change', function() {
-                var boxes_id = $('#box_select').val();
-                //alert(boxes_id);
-                var url = "{{route('cargar_datos_boxes',':id')}}";
-                url = url.replace(':id', boxes_id);
-
-                if (boxes_id) {
-                  $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(data) {
-                      $('#boxes_info').html(data);
-                    },
-                    error: function() {
-                      alert('Error al obtener los datos');
-                    }
-                  });
-                } else {
-                  $('#boxes_info').html('');
-                }
-              });
-            </script>
-            <div id="boxes_info">
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>-->
-
 
   <footer id="footer" class="footer light-background">
 

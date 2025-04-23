@@ -79,6 +79,7 @@ Route::delete('/admin/doctores/{id}', [App\Http\Controllers\DoctorController::cl
 //Rutas para el admin-horarios
 Route::get('/admin/horarios', [App\Http\Controllers\HorarioController::class, 'index'])->name('admin.horarios.index')->middleware('auth', 'can:admin.horarios.index');
 Route::get('/admin/horarios/create', [App\Http\Controllers\HorarioController::class, 'create'])->name('admin.horarios.create')->middleware('auth', 'can:admin.horarios.create');
+Route::get('/admin/horarios/informacion', [App\Http\Controllers\HorarioController::class, 'info_horarios'])->name('admin.horarios.informacion')->middleware('auth');
 Route::post('/admin/horarios/create', [App\Http\Controllers\HorarioController::class, 'store'])->name('admin.horarios.store')->middleware('auth', 'can:admin.horarios.store');
 Route::get('/admin/horarios/{id}', [App\Http\Controllers\HorarioController::class, 'show'])->name('admin.horarios.show')->middleware('auth', 'can:admin.horarios.show');
 Route::get('/admin/horarios/{id}/edit', [App\Http\Controllers\HorarioController::class, 'edit'])->name('admin.horarios.edit')->middleware('auth', 'can:admin.horarios.edit');
@@ -88,15 +89,9 @@ Route::delete('/admin/horarios/{id}', [App\Http\Controllers\HorarioController::c
 //ajax
 Route::get('/admin/horarios/boxes/{id}', [App\Http\Controllers\HorarioController::class, 'cargar_datos_boxes'])->name('admin.horarios.cargar_datos_boxes')->middleware('auth', 'can:admin.horarios.cargar_datos_boxes');
 
-//Rutas para el usuario
-//ajax
+//Rutas Ajax
 Route::get('/boxes/{id}', [App\Http\Controllers\WebController::class, 'cargar_datos_boxes'])->name('cargar_datos_boxes')->middleware('auth', 'can:cargar_datos_boxes');
-<<<<<<< HEAD
-Route::get('/cargar_fullCalendar/{id}', [App\Http\Controllers\WebController::class, 'cargar_fullCalendar'])->name('cargar_fullCalendar')->middleware('auth', 'can:cargar_fullCalendar');
-=======
 Route::get('/cargar_fullCalendar/{id}', [App\Http\Controllers\WebController::class, 'cargar_fullCalendar'])->name('cargar_fullCalendar');
->>>>>>> ramaHija
-Route::get('/admin/ver_reservas/{id}', [App\Http\Controllers\AdminController::class, 'ver_reservas'])->name('ver_reservas')->middleware('auth', 'can:ver_reservas');
-/*Route::post('/admin/eventos/create', [App\Http\Controllers\HorarioController::class, 'store'])->name('admin.eventos.create')->middleware('auth', 'can:admin.eventos.create');*/
+Route::get('/admin/ver_reservas/{id}', [App\Http\Controllers\AdminController::class, 'ver_reservas'])->name('ver_reservas');
 Route::delete('/admin/eventos/destroy/{id}', [App\Http\Controllers\EventController::class, 'destroy'])->name('admin.eventos.destroy')->middleware('auth', 'can:admin.eventos.destroy');
 Route::post('/cargar_datos_boxes', [App\Http\Controllers\WebController::class, 'cargar_datos_boxes'])->name('cargar_datos_boxes_post')->middleware('auth', 'can:cargar_datos_boxes');

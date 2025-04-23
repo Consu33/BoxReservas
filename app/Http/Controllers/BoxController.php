@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Box;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BoxController extends Controller
 {
@@ -28,13 +29,20 @@ class BoxController extends Controller
         //$datos = request()->all();
         //return response()->json($datos);
         $request->validate([
-            'numero' => 'required',
+            'numero' => [
+                'required',
+                Rule::unique('boxes')->where(function ($query) use ($request) {
+                    return $query->where('recinto', $request->recinto)
+                                 ->where('piso', $request->piso)
+                                 ->where('torre', $request->torre);
+                })
+            ],
             'recinto' => 'required',
             'especialidades' => 'nullable',
             'piso' => 'required',
-            'torre'=>'required'
-        ],[
-            'recinto.unique' => 'El recinto ya está registrado.',
+            'torre' => 'required'
+        ], [
+            'numero.unique' => 'Ya existe un box con este número en el mismo recinto, piso y torre.'
         ]);
 
         Box::create($request->all());

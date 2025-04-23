@@ -321,7 +321,7 @@
                 }
             });
 
-            $(".nav-sidebar a.nav-link[href*='/admin'], .nav-treeview a.nav-link[href*='/admin'], a[href*='/admin/horarios/create'], a[href*='/admin/boxes/create'] , a[href*='/admin/horarios/informacion']").click(function (event) {
+            $(".nav-sidebar a.nav-link[href*='/admin'], .nav-treeview a.nav-link[href*='/admin'], a[href*='/admin/horarios/create'], a[href*='/admin/enfermeras/create'], a[href*='/admin/usuarios/create'], a[href*='/admin/boxes/create'], a[href*='/admin/doctores/create'], a[href*='/admin/horarios/informacion']").click(function (event) {
                 event.preventDefault(); // Evita navegación instantánea
                 $("#pageSpinner").show(); // Muestra el spinner
 

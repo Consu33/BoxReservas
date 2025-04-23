@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="row">
-    <h1>Horarios Programadados para Hoy</h1>
+    <h1>Horarios Programados para Hoy</h1>
 </div>
 <hr>
 

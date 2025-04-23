@@ -234,8 +234,6 @@
                                     }, {
                                         extend: 'pdf'
                                     }, {
-                                        extend: 'csv'
-                                    }, {
                                         extend: 'excel'
                                     }, {
                                         text: 'Imprimir',
